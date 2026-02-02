@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>HR Management - Employee</title>
+  <style>
+    :root{--blue:#2b6bf6;--dark:#222;--muted:#6b7280;--danger:#e53e3e;--yellow:#f6c90e}
+    body{font-family:Inter,system-ui,Arial,sans-serif;background:#f3f6f9;margin:20px}
+    .card{background:#fff;border:1px solid #cbd5e1;padding:20px;border-radius:6px;box-shadow:0 1px 0 rgba(0,0,0,0.02)}
+    header.nav{display:flex;align-items:center;gap:20px;margin-bottom:18px}
+    .brand{font-weight:700;color:#fff;background:var(--dark);padding:10px 14px;border-radius:4px}
+    .nav-links{display:flex;gap:12px;color:var(--muted);align-items:center}
+    .search{margin-left:auto;display:flex;gap:8px;align-items:center}
+    .search input{padding:8px;border-radius:4px;border:1px solid #cbd5e1}
+
+    h2{margin:8px 0 18px}
+
+    .toolbar{display:flex;justify-content:flex-end}
+    .btn{padding:8px 12px;border-radius:6px;border:0;cursor:pointer;font-weight:600}
+    .btn.add{background:var(--blue);color:#fff}
+
+    table{width:100%;border-collapse:collapse;background:#fff}
+    th,td{padding:14px 12px;border-bottom:1px solid #eef2f7;text-align:left;font-size:14px}
+    th{background:#fbfcfd;font-weight:700;color:#111}
+    td.actions{width:170px}
+    .pill{padding:6px 10px;border-radius:6px;display:inline-block}
+    .btn-edit{background:#f6c90e;color:#111;border-radius:6px;padding:6px 10px;margin-right:8px}
+    .btn-del{background:#ef4444;color:white;border-radius:6px;padding:6px 10px}
+
+    /* Modal styles */
+    .modal-backdrop{position:fixed;inset:0;background:rgba(2,6,23,0.5);display:none;align-items:center;justify-content:center;padding:20px}
+    .modal{background:#fff;border-radius:6px;width:720px;max-width:100%;box-shadow:0 10px 30px rgba(2,6,23,0.3)}
+    .modal .header{background:var(--blue);color:#fff;padding:12px 16px;border-top-left-radius:6px;border-top-right-radius:6px;display:flex;justify-content:space-between;align-items:center}
+    .modal .body{padding:16px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .modal label{display:block;font-size:13px;margin-bottom:6px;color:#334155}
+    .modal input[type=text],.modal input[type=email],.modal select{width:100%;padding:8px;border:1px solid #cbd5e1;border-radius:6px}
+    .modal .footer{padding:12px 16px;display:flex;justify-content:flex-end;gap:8px}
+    .close-x{background:transparent;border:0;color:#fff;font-size:20px;cursor:pointer}
+
+    @media (max-width:640px){
+      .modal .body{grid-template-columns:1fr}
+      th,td{padding:10px}
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <header class="nav">
+      <div class="brand">HR Management</div>
+      <nav class="nav-links"><a href="#">Home</a><a href="#">Contact</a></nav>
+      <div class="search">
+        <input id="q" placeholder="Search...">
+        <button class="btn">Search</button>
+      </div>
+    </header>
+
+    <main>
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <h2>Employee</h2>
+        <div class="toolbar"><button id="openAdd" class="btn add">+ Add</button></div>
+      </div>
+
+      <table id="employees" class="card" style="margin-top:12px">
+        <thead>
+          <tr>
+            <th style="width:60px">ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Position</th>
+            <th class="actions">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-id="1"><td>1</td><td>Fatima Beatriz</td><td>Fatima Beatriz@gmail.com</td><td>0985674321</td><td>Staff</td><td class="actions"><button class="btn-edit" data-act="edit">Edit</button><button class="btn-del" data-act="delete">Delete</button></td></tr>
+          <tr data-id="2"><td>2</td><td>Gabriel Hanna</td><td>Gabriel Hanna@gmail.com</td><td>0353674231</td><td>Staff</td><td class="actions"><button class="btn-edit" data-act="edit">Edit</button><button class="btn-del" data-act="delete">Delete</button></td></tr>
+          <tr data-id="3"><td>3</td><td>Charles Diya</td><td>Charles Diya@gmail.com</td><td>0347658833</td><td>Staff</td><td class="actions"><button class="btn-edit" data-act="edit">Edit</button><button class="btn-del" data-act="delete">Delete</button></td></tr>
+          <tr data-id="4"><td>4</td><td>Frank Lamdo</td><td>Frank Lamdo@gmail.com</td><td>0975444768</td><td>Manager</td><td class="actions"><button class="btn-edit" data-act="edit">Edit</button><button class="btn-del" data-act="delete">Delete</button></td></tr>
+          <tr data-id="5"><td>5</td><td>Louis Tom</td><td>Louis Tom@gmail.com</td><td>0789568223</td><td>Staff</td><td class="actions"><button class="btn-edit" data-act="edit">Edit</button><button class="btn-del" data-act="delete">Delete</button></td></tr>
+        </tbody>
+      </table>
+    </main>
+  </div>
+
+  <!-- Modal -->
+  <div id="modal" class="modal-backdrop" role="dialog" aria-hidden="true">
+    <div class="modal" role="document">
+      <div class="header">
+        <div style="font-weight:700">New Employee</div>
+        <button id="closeModal" class="close-x">×</button>
+      </div>
+      <form id="empForm">
+        <div class="body">
+          <div>
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" required>
+          </div>
+          <div>
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email">
+          </div>
+          <div>
+            <label for="phone">Phone</label>
+            <input id="phone" name="phone" type="text">
+          </div>
+          <div>
+            <label for="position">Position</label>
+            <select id="position" name="position">
+              <option value="">-- Select Position --</option>
+              <option>Staff</option>
+              <option>Manager</option>
+              <option>CEO</option>
+            </select>
+          </div>
+
+          <div style="grid-column:1/3">
+            <label>Sex</label>
+            <div style="display:flex;gap:12px;margin-top:6px">
+              <label><input type="radio" name="sex" value="Male"> Male</label>
+              <label><input type="radio" name="sex" value="Female"> Female</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer">
+          <button type="button" id="saveBtn" class="btn" style="background:#16a34a;color:#fff">Save</button>
+          <button type="button" id="cancelBtn" class="btn" style="background:#6b7280;color:#fff">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Simple modal and CRUD interactions (client-side only)
+    const modal = document.getElementById('modal');
+    const openAdd = document.getElementById('openAdd');
+    const closeModal = document.getElementById('closeModal');
+    const cancelBtn = document.getElementById('cancelBtn');
+    const saveBtn = document.getElementById('saveBtn');
+    const empForm = document.getElementById('empForm');
+    const tbody = document.querySelector('#employees tbody');
+    let editRow = null;
+
+    function openModal(edit=false,row=null){
+      modal.style.display='flex';
+      modal.setAttribute('aria-hidden','false');
+      if(edit && row){
+        const cells = row.querySelectorAll('td');
+        document.getElementById('name').value = cells[1].textContent.trim();
+        document.getElementById('email').value = cells[2].textContent.trim();
+        document.getElementById('phone').value = cells[3].textContent.trim();
+        document.getElementById('position').value = cells[4].textContent.trim();
+        editRow = row;
+      } else {
+        empForm.reset();
+        editRow = null;
+      }
+    }
+    function closeModalFn(){
+      modal.style.display='none';
+      modal.setAttribute('aria-hidden','true');
+    }
+
+    openAdd.addEventListener('click',()=>openModal());
+    closeModal.addEventListener('click',closeModalFn);
+    cancelBtn.addEventListener('click',closeModalFn);
+    modal.addEventListener('click',(e)=>{ if(e.target===modal) closeModalFn(); });
+
+    saveBtn.addEventListener('click',()=>{
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const position = document.getElementById('position').value.trim();
+      if(!name){ alert('Please enter name'); return; }
+
+      if(editRow){
+        const cells = editRow.querySelectorAll('td');
+        cells[1].textContent = name;
+        cells[2].textContent = email;
+        cells[3].textContent = phone;
+        cells[4].textContent = position;
+        editRow = null;
+      } else {
+        const id = Date.now()%100000; // simple id
+        const tr = document.createElement('tr');
+        tr.setAttribute('data-id',id);
+        tr.innerHTML = `<td>${tbody.children.length+1}</td><td>${escapeHtml(name)}</td><td>${escapeHtml(email)}</td><td>${escapeHtml(phone)}</td><td>${escapeHtml(position)}</td><td class="actions"><button class="btn-edit" data-act="edit">Edit</button><button class="btn-del" data-act="delete">Delete</button></td>`;
+        tbody.appendChild(tr);
+      }
+      closeModalFn();
+    });
+
+    // Delegate edit/delete
+    tbody.addEventListener('click',(e)=>{
+      const btn = e.target.closest('button');
+      if(!btn) return;
+      const tr = btn.closest('tr');
+      if(btn.dataset.act==='edit'){
+        openModal(true,tr);
+      } else if(btn.dataset.act==='delete'){
+        if(confirm('Delete this employee?')){
+          tr.remove();
+          // re-number IDs
+          Array.from(tbody.children).forEach((r,i)=> r.firstElementChild.textContent = i+1);
+        }
+      }
+    });
+
+    function escapeHtml(s){ return s.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;'); }
+
+    // Quick search filtering
+    document.getElementById('q').addEventListener('input',(e)=>{
+      const q = e.target.value.toLowerCase();
+      Array.from(tbody.rows).forEach(row=>{
+        const txt = row.textContent.toLowerCase();
+        row.style.display = txt.includes(q)?'':'none';
+      });
+    });
+  </script>
+</body>
+</html>

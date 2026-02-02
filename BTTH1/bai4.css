@@ -1,0 +1,104 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f7f7f7;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 30px;
+}
+
+.form-wrapper {
+    max-width: 750px;
+    margin: 0 auto;
+    background: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+}
+
+.section-header {
+    font-weight: bold;
+    font-size: 15px;
+    margin-top: 10px;
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid #aaa;
+    margin: 5px 0 15px 0;
+}
+
+.form-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.form-table td {
+    padding: 6px 0;
+    vertical-align: top;
+    font-size: 13px;
+}
+
+.label {
+    width: 180px;
+    font-weight: bold;
+}
+
+input[type="text"], input[type="email"], select, textarea {
+    border: 1px solid #888;
+    padding: 4px;
+    font-size: 13px;
+}
+
+.w-100 { width: 100%; }
+.w-90 { width: 95%; }
+
+.radio-group label, .form-table label {
+    display: inline-block;
+    margin-bottom: 4px;
+    font-weight: normal;
+}
+
+.mt-20 { margin-top: 25px; }
+
+/* Giả lập toolbar ghi chú */
+.editor-toolbar {
+    background: #fdfdfd;
+    border: 1px solid #888;
+    border-bottom: none;
+    padding: 4px 8px;
+    font-size: 14px;
+    color: #555;
+}
+
+.captcha-box {
+    font-size: 30px;
+    font-family: "Courier New", Courier, monospace;
+    font-weight: bold;
+    letter-spacing: 8px;
+    margin: 10px 0 5px 0;
+    color: #444;
+}
+
+.captcha-hint {
+    font-size: 11px;
+    margin-bottom: 5px;
+}
+
+.form-footer {
+    margin-top: 30px;
+    padding-top: 15px;
+    border-top: 1px solid #ccc;
+    text-align: right;
+}
+
+.btn-save, .btn-close {
+    padding: 6px 15px;
+    font-size: 13px;
+    cursor: pointer;
+    margin-left: 5px;
+    border-radius: 3px;
+}
+
+.btn-save { background-color: #333; color: white; border: none; }
+.btn-close { background-color: #eee; border: 1px solid #888; }

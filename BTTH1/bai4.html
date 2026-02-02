@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>BÀI TẬP 04: Form Mẫu Nhân Viên Chi Tiết</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="form-wrapper">
+        <form action="#">
+            <div class="section-header">Basic Info</div>
+            <hr>
+            <table class="form-table">
+                <tr>
+                    <td class="label">Employee ID</td>
+                    <td>9</td>
+                </tr>
+                <tr>
+                    <td class="label">Last Name</td>
+                    <td>Dodsworth</td>
+                </tr>
+                <tr>
+                    <td class="label">First Name</td>
+                    <td><input type="text" value="Anne" class="w-100"></td>
+                </tr>
+                <tr>
+                    <td class="label">Gender</td>
+                    <td class="radio-group">
+                        <label><input type="radio" name="g"> Male</label><br>
+                        <label><input type="radio" name="g"> Female</label><br>
+                        <label><input type="radio" name="g"> XXX</label><br>
+                        <label><input type="radio" name="g" checked> ZZZ</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">Title</td>
+                    <td><input type="text" value="Sales Representative" class="w-100"></td>
+                </tr>
+                <tr>
+                    <td class="label">Suffix</td>
+                    <td><input type="text" value="Ms." class="w-100"></td>
+                </tr>
+                <tr>
+                    <td class="label">BirthDate</td>
+                    <td><input type="text" value="1969-07-02 00:00:00" class="w-90"> (?)</td>
+                </tr>
+                <tr>
+                    <td class="label">HireDate</td>
+                    <td><input type="text" value="1994-11-15 00:00:00" class="w-100"></td>
+                </tr>
+                <tr>
+                    <td class="label">SSN # (if applicable)</td>
+                    <td><input type="text" class="w-100"></td>
+                </tr>
+                <tr>
+                    <td class="label">Reports To</td>
+                    <td>
+                        <select class="custom-select">
+                            <option>Buchanan</option>
+                            <option>Callahan</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+
+            <div class="section-header mt-20">Contact Info</div>
+            <hr>
+            <table class="form-table">
+                <tr>
+                    <td class="label">Email</td>
+                    <td><input type="email" placeholder="name@example.com" class="w-100"></td>
+                </tr>
+                <tr>
+                    <td class="label">Address</td>
+                    <td><input type="text" value="7 Houndstooth Rd." class="w-100"></td>
+                </tr>
+                <tr>
+                    <td class="label">City</td>
+                    <td><input type="text" value="London" class="w-100"></td>
+                </tr>
+                <tr>
+                    <td class="label">Region</td>
+                    <td><input type="text" class="w-100"></td>
+                </tr>
+                <tr>
+                    <td class="label">Postal Code</td>
+                    <td><input type="text" value="WG2 7LT" class="w-100"></td>
+                </tr>
+                <tr>
+                    <td class="label">Country</td>
+                    <td>
+                        <select class="custom-select">
+                            <option>Russian Federation</option>
+                            <option>Viet Nam</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">US Home Phone</td>
+                    <td><input type="text" value="(234)234-2342" class="w-100"></td>
+                </tr>
+                <tr>
+                    <td class="label">Photo</td>
+                    <td><input type="text" value="EmpID9.bmp" class="w-100"></td>
+                </tr>
+            </table>
+
+            <div class="section-header mt-20">Optional Info</div>
+            <hr>
+            <table class="form-table">
+                <tr>
+                    <td class="label">Notes</td>
+                    <td>
+                        <div class="editor-toolbar">
+                            <span><b>B</b> <i>I</i> <u>S</u> <u>U</u></span> | 
+                            <span>≡ ≡ ≡</span> | 
+                            <span>X₂ X²</span> | 
+                            <span>🔗 ≣</span>
+                        </div>
+                        <textarea rows="6" class="w-100">Anne has a BA degree in English from St. Lawrence College. She is fluent in French and German.ZZZ</textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">Preferred Shift</td>
+                    <td>
+                        <label><input type="checkbox"> Regular</label><br>
+                        <label><input type="checkbox" checked> Gravy Yard</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label">Active?</td>
+                    <td><input type="checkbox" checked></td>
+                </tr>
+                <tr>
+                    <td class="label">Are you human?</td>
+                    <td>
+                        <div class="captcha-box">T I D A W O</div>
+                        <p class="captcha-hint">Click to change</p>
+                        <input type="text" class="w-100">
+                    </td>
+                </tr>
+            </table>
+
+            <div class="form-footer">
+                <button type="submit" class="btn-save">💾 Submit</button>
+                <button type="button" class="btn-close">✖ Cancel</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
